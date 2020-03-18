@@ -26,9 +26,9 @@ class checking:
             return False
 
     def add_server(self):
+        ruta = 'indice.csv'
         count = len(open(self).readlines())
         with open(self, 'r') as fh:
-            x = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
             check = ''
             os.system('clear')
             host = input('Ingrese la IP/HOST: ')
@@ -40,19 +40,18 @@ class checking:
             linetop = str(host + user + port + '\n')
             for linea in islice(fh, 1, count-1):
                 datos = linea.split(',')
-
                 line = str(datos[0] + datos[1] + datos[3])
                 if linetop == line:
                     print('Ya existe el servidor introducido')
                     check = line
                     self.add_server(fh)
             if check != linetop:
+                x = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
                 passwd = cifrar.encrypt(passwd, x)
                 encode = hashlib.md5(str(host + user + port).encode()).hexdigest()
-
-                i = open('../indice.csv', 'a')
-                i.write(encode + ',' + x + "\n")
-                i.close()
+                file = open(ruta, 'a')
+                file.write(encode + ',' + x + "\n")
+                file.close()
                 f = open(self, 'a')
                 f.write(host + ',' + user + ',' + passwd + ',' + '' + port + "\n")
                 f.close()

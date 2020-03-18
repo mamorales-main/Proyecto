@@ -23,7 +23,7 @@ class sender:
                 array = listar.server_on(datos[0], datos[1], int(datos[3].split('\n')[0]))
                 array.append(datos[2])
                 if array:
-                    with open('../indice.csv', 'r') as md:
+                    with open('indice.csv', 'r') as md:
                         for linea2 in islice(md, 1, count2):
                             encode = hashlib.md5(str(array[0] + array[1] + str(array[2])).encode()).hexdigest()
                             datosmd5 = linea2.split(',')
