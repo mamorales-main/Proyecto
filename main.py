@@ -44,7 +44,7 @@ def menu(ruta):
         elif choice == '3':
             os.system('clear')
             command = input('Introduce un comando(Se enviará a todos los servidores disponibles): ')
-            sender.send(ruta, command)
+            sender.send(ruta, indice, command)
         elif choice == '4':
             os.system('clear')
             remove_server.set(ruta, indice)

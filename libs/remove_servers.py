@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
-from libs.cifrar_pass import Crypt
-
 import hashlib
 import os
-import random
-import string
 from itertools import islice
 
 os.system('clear')

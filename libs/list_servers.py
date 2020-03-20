@@ -17,8 +17,11 @@ class listar:
             array.append(ip)
             array.append(user)
             array.append(port)
-        sock.close()
-        return array
+            return array
+            sock.close()
+        else:
+            return False
+
 
     def servers(self):
         count = len(open(self).readlines())
