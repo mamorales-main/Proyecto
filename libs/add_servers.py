@@ -14,19 +14,48 @@ cifrar = Crypt()
 
 class checking:
 
-    def checkFile(self):
-        check = ''
+    def checkServers(self, indice):
+        try:
+            with open(self, 'r') as fh:
+                count = len(open(self).readlines())
+                count2 = len(open(indice).readlines())
+                if count != count2:
+                    print('Para que el programa funcione, los dos ficheros deben coincidir')
+                    exit(1)
+                return True
+        except FileNotFoundError:
+            remove = input('El fichero de servidores introducido no existe, si desea continuar, el fichero de índices '
+                           'se borrará/creará... (Y/N): ')
+            if remove.capitalize() == 'Y':
+                f = open(self, 'a+')
+                f.write("host,user,pass,port\n")
+                f.close()
+                i = open(indice, 'w+')
+                i.write("md5,passwd\n")
+                i.close()
+                return True
+            else:
+                exit(1)
+
+    def checkIndice(self, ruta):
         try:
             with open(self, 'r') as fh:
                 return True
         except FileNotFoundError:
-            f = open(self, 'a')
-            f.write("host,user,pass,port\n")
-            f.close()
-            return False
+            remove = input('El fichero de índices introducido no existe, si desea continuar, el fichero de servidores '
+                           'se borrará/creará... (Y/N): ')
+            if remove.capitalize() == 'Y':
+                f = open(self, 'a+')
+                f.write("md5,passwd\n")
+                f.close()
+                s = open(ruta, 'w+')
+                s.write("host,user,pass,port\n")
+                s.close()
+                return True
+            else:
+                exit(1)
 
-    def add_server(self):
-        ruta = 'indice.csv'
+    def add_server(self, ruta):
         count = len(open(self).readlines())
         with open(self, 'r') as fh:
             check = ''

@@ -7,11 +7,16 @@ from libs.list_servers import listar
 from libs.send_commands import sender
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-f", "--file", type=str, nargs='+', help='Ruta relativa del fichero. Si no existe, se creará de '
-                                                              'forma automática.')
+parser.add_argument("-s", "--servers", type=str, nargs='+', help='Ruta relativa del fichero que contendrá los '
+                                                              'servidores. Si no existe, se creará de forma '
+                                                              'automática.')
+parser.add_argument("-i", "--indice", type=str, nargs='+', help='Ruta relativa del fichero que contendrá las '
+                                                                'contraseñas cifradas. Si no existe, se creará de '
+                                                                'forma automática.')
 args = parser.parse_args()
 
-ruta = args.file[0]
+ruta = args.servers[0]
+indice = args.indice[0]
 
 
 def menu(ruta):
@@ -35,7 +40,7 @@ def menu(ruta):
             listar.servers(ruta)
         elif choice == '2':
             os.system('clear')
-            checking.add_server(ruta)
+            checking.add_server(ruta, indice)
         elif choice == '3':
             os.system('clear')
             command = input('Introduce un comando(Se enviará a todos los servidores disponibles): ')
@@ -52,10 +57,9 @@ def menu(ruta):
 
 
 def comprobarFichero():
-    if checking.checkFile(ruta):
-        menu(ruta)
-    else:
-        print('El fichero indicado no existe. Se procede con su creación...')
+    if checking.checkServers(ruta, indice):
+        if checking.checkIndice(indice, ruta):
+            menu(ruta)
 
 
 if __name__ == '__main__':
