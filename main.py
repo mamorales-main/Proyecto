@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import argparse
 import os
-import time
 from libs.add_servers import checking
 from libs.list_servers import listar
 from libs.send_commands import sender
+from libs.remove_servers import remove_server
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--servers", type=str, nargs='+', help='Ruta relativa del fichero que contendrá los '
@@ -24,9 +24,9 @@ def menu(ruta):
         os.system('clear')
         print(30 * "-", "Administración de Servidores", 30 * "-")
         print("1. Listar servidores")
-        print("2. Añadir servidores")
+        print("2. Añadir servidor")
         print("3. Mandar comando/s")
-        print("4. Menu Option 4")
+        print("4. Eliminar servidor")
         print("5. Exit")
         print(67 * "-")
 
@@ -46,9 +46,9 @@ def menu(ruta):
             command = input('Introduce un comando(Se enviará a todos los servidores disponibles): ')
             sender.send(ruta, command)
         elif choice == '4':
-            print("Menu 4 has been selected")
+            os.system('clear')
+            remove_server.set(ruta, indice)
         elif choice == '5':
-            print("Menu 5 has been selected")
             loop = False
         elif choice == '':
             input("Selección incorrecta, porfavor presiona Enter o otra tecla para continuar..")
